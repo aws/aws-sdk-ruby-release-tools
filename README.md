@@ -1,11 +1,6 @@
-## My Project
-
-TODO: Fill this README out!
-
-Be sure to:
-
-* Change the title in this README
-* Edit your repository description on GitHub
+## Shared Release tools for AWS SDK for Ruby 1P gems
+Common release scripts/tasks intended to be used as a submodule.
+See the internal runbook for usage instructions.
 
 ## License
 
