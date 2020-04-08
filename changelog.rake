@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'utils'
+require_relative 'release_tool_utils'
 
 namespace :changelog do
+  desc 'replaces "Unreleased Changes"" in the CHANGELOG with a version and date'
   idempotent_task :version do
-    # replaces "Unreleased Changes" in the CHANGELOG with a version and date
     changelog = File.open('CHANGELOG.md', 'r', encoding: 'UTF-8', &:read)
     changelog = changelog.lines.to_a
     unless changelog.first.include? 'Unreleased Changes'
@@ -17,8 +17,8 @@ namespace :changelog do
     sh('git add CHANGELOG.md')
   end
 
+  desc 'inserts an "Unreleased Changes" section at the top of the CHANGELOG'
   idempotent_task :unreleased_changes do
-    # inserts a "Unreleased Changes" section at the top of the CHANGELOG
     lines = []
     lines << "Unreleased Changes\n"
     lines << "------------------\n"

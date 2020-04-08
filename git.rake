@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'rake'
-require_relative 'utils'
+require_relative 'release_tool_utils'
 
 namespace :git do
   desc 'Ensure that the workspace is in a good state to release'
@@ -11,8 +11,7 @@ namespace :git do
     Rake::Task['git:require_up_to_date'].execute
   end
 
-  # Ensure the git repo is free of unstaged or untracked files prior
-  # to building / testing / pushing a release.
+  desc 'Ensure the git repo is free of unstaged or untracked files'
   task :require_clean_workspace do
     status = `git diff --shortstat -ignore-submodules 2> /dev/null | tail -n1`
     unless status == ''
@@ -21,7 +20,7 @@ namespace :git do
     end
   end
 
-  # Ensure the git repo is on master
+  desc 'Ensure the git repo is on master'
   task :require_master do
     status = `git status --porcelain=v2 --branch 2> /dev/null`
     unless status.include? 'branch.ab +0 -0'
@@ -31,7 +30,7 @@ namespace :git do
     end
   end
 
-  # Ensure the git repo is up to
+  desc 'Ensure the git repo is up to date/in sync with origin'
   task :require_up_to_date do
     status = `git fetch && git status --porcelain=v2 --branch 2> /dev/null`
     unless status.include? 'branch.upstream origin/master'
@@ -40,11 +39,13 @@ namespace :git do
     end
   end
 
+  desc 'Add a tag of the version release'
   task :tag do
     sh("git commit -m \"Bumped version to v#{$VERSION}\"")
-    sh("git tag -a -m \"$(rake git:tag_message)\" v#{$VERSION}")
+    sh("git tag -a -m \"#{tag_message}\" v#{$VERSION}")
   end
 
+  desc 'Push local changes and tags to the origin'
   task :push do
     sh('git push origin')
     sh('git push origin --tags')

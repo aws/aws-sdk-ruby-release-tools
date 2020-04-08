@@ -12,7 +12,7 @@ end
 def idempotent_task(task_def)
   task task_def do |task|
     ensure_release_dir
-    task_checkpoint_file = ".release/#{task}.checkpoint"
+    task_checkpoint_file = ".release/#{task}.completed"
     if File.exist? task_checkpoint_file
       puts "#{task} has already run for this release.  Skipping"
     else
