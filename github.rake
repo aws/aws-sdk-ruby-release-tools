@@ -11,8 +11,11 @@ namespace :github do
     end
   end
 
-  # This task must be defined to deploy
-  task 'access-token'
+  # TODO: Remove these after a successful release
+  # We previously defined these as below
+  # But they don't appear to be used anywhere
+  # task 'access-token'
+  # task 'access_token'
 
   idempotent_task :release do
     require 'octokit'
@@ -37,5 +40,4 @@ namespace :github do
                     content_type: 'application/octet-stream')
   end
 
-  task 'access_token'
 end
