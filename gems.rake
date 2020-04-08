@@ -13,7 +13,7 @@ namespace :gems do
   end
 
   task :require_credentials do
-    unless File.exists? File.expand_path('~/.gem/credentials')
+    unless File.exist? File.expand_path('~/.gem/credentials')
       warn('RubyGems credentials are required in `~/.gem/credentials`')
       exit
     end

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
+
 require_relative 'utils'
 
 namespace :changelog do
-
   idempotent_task :version do
     # replaces "Next Release (TBD)" in the CHANGELOG with a version and date
     changelog = File.open('CHANGELOG.md', 'r', encoding: 'UTF-8', &:read)
@@ -12,7 +12,7 @@ namespace :changelog do
     File.open('CHANGELOG.md', 'w', encoding: 'UTF-8') { |f| f.write(changelog) }
     sh('git add CHANGELOG.md')
   end
-  
+
   idempotent_task :next_release do
     # inserts a "Next Release (TDB)" section at the top of the CHANGELOG
     lines = []
@@ -24,17 +24,5 @@ namespace :changelog do
     File.open('CHANGELOG.md', 'w', encoding: 'UTF-8') { |f| f.write(changelog) }
     sh('git add CHANGELOG.md')
     sh("git commit -m 'Added next release section to the changelog. [ci skip]'")
-  end
-  
-  task :latest do
-    # Returns the contents of the most recent CHANGELOG section
-    changelog = File.open('CHANGELOG.md', 'r', encoding: 'UTF-8', &:read)
-    lines = []
-    changelog.lines.to_a[3..-1].each do |line|
-      break if line.match(/^\d+\.\d+\.\d+/)
-  
-      lines << line
-    end
-    puts lines[0..-2].join
   end
 end

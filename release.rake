@@ -4,7 +4,7 @@ require_relative 'utils'
 require 'rake'
 
 desc 'Public release, `VERSION=x.y.z rake release`'
-task :release => [
+task release: [
   'git:check_workspace',
   'release:check',
   'test',
@@ -14,12 +14,11 @@ task :release => [
 ]
 
 namespace :release do
-
   # ensures all of the required credentials are present
-  task :check => [
+  task check: [
     'release:require_version',
     'github:require_access_token',
-    'gems:require_credentials',
+    'gems:require_credentials'
   ]
 
   task :require_version do
@@ -35,10 +34,8 @@ namespace :release do
     sh('git add VERSION')
   end
 
-
-
   # builds release artifacts
-  task :build => [
+  task build: [
     'release:require_version',
     'changelog:version',
     'release:bump_version',
@@ -46,7 +43,7 @@ namespace :release do
   ]
 
   # deploys release artifacts
-  task :publish => [
+  task publish: [
     'release:check',
     'gems:push',
     'release:push_version',
