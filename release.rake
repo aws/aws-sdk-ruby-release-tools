@@ -39,7 +39,8 @@ namespace :release do
     'release:require_version',
     'changelog:version',
     'release:bump_version',
-    'gems:build'
+    'gems:build',
+    'docs:zip'
   ]
 
   # deploys release artifacts
@@ -59,7 +60,7 @@ namespace :release do
 
   # Adds new, clean unreleased changes section and pushes it
   idempotent_task :next_release do
-    Rake::Task['changelog:next_release'].execute
+    Rake::Task['changelog:unreleased_changes'].execute
     Rake::Task['git:push'].execute
   end
 

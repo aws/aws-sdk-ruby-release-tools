@@ -17,8 +17,8 @@ namespace :changelog do
     sh('git add CHANGELOG.md')
   end
 
-  idempotent_task :next_release do
-    # inserts a "Next Release (TDB)" section at the top of the CHANGELOG
+  idempotent_task :unreleased_changes do
+    # inserts a "Unreleased Changes" section at the top of the CHANGELOG
     lines = []
     lines << "Unreleased Changes\n"
     lines << "------------------\n"
