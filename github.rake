@@ -39,8 +39,11 @@ namespace :github do
       prerelease: $VERSION.match('rc') ? true : false
     )
 
-    gh.upload_asset(release.url, "#{gem_name}-#{$VERSION}.gem",
-                    content_type: 'application/octet-stream')
+    gh.upload_asset(
+      release.url,
+      "#{gem_name}-#{$VERSION}.gem",
+      content_type: 'application/octet-stream'
+    )
   end
 
 end
