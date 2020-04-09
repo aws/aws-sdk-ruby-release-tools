@@ -1,11 +1,25 @@
 # frozen_string_literal: true
 
-desc 'Builds the aws-sdk-rails gem'
-task 'gems:build' do
-  sh('rm -f *.gem')
-  sh('gem build aws-sdk-rails.gemspec')
-end
+require_relative 'release_tool_utils'
 
-task 'gems:push' do
-  sh("gem push aws-sdk-rails-#{$VERSION}.gem")
+namespace :gems do
+
+  desc 'Build the gem'
+  task :build do
+    sh('rm -f *.gem')
+    sh("gem build #{gem_name}.gemspec")
+  end
+
+  desc 'Push (release) the gem to RubyGems'
+  idempotent_task :push do
+    sh("gem push #{gem_name}-#{$VERSION}.gem")
+  end
+
+  desc 'Check that gem credentials have been set'
+  task :require_credentials do
+    unless File.exist? File.expand_path('~/.gem/credentials')
+      warn('RubyGems credentials are required in `~/.gem/credentials`')
+      exit(1)
+    end
+  end
 end
