@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'rake'
 require_relative 'release_tool_utils'
 
 namespace :git do
