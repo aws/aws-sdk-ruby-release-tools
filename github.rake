@@ -13,12 +13,6 @@ namespace :github do
     end
   end
 
-  # TODO: Remove these after a successful release
-  # We previously defined these as below
-  # But they don't appear to be used anywhere
-  # task 'access-token'
-  # task 'access_token'
-
   desc 'Push a new github release'
   idempotent_task :release do
     require 'octokit'
@@ -31,7 +25,7 @@ namespace :github do
     tag_ref_sha = `git show-ref v#{$VERSION}`.split(' ').first
     tag = gh.tag(repo, tag_ref_sha)
 
-    name = "Release v#{$VERSION} - tag.tagger.date.strftime('%Y-%m-%d')"
+    name = "Release v#{$VERSION} - #{tag.tagger.date.strftime('%Y-%m-%d')}"
     release = gh.create_release(
       repo, "v#{$VERSION}",
       name: name,
