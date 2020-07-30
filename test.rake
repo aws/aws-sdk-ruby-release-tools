@@ -4,8 +4,7 @@ require 'rspec/core/rake_task'
 
 desc 'run unit tests'
 RSpec::Core::RakeTask.new('test:unit') do |t|
-  t.rspec_opts = "-I #{$REPO_ROOT}/lib"
-  t.rspec_opts << " -I #{$REPO_ROOT}/spec"
+  t.rspec_opts = "-I #{$REPO_ROOT}/lib -I #{$REPO_ROOT}/spec"
   t.pattern = "#{$REPO_ROOT}/spec"
 end
 
