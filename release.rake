@@ -6,7 +6,7 @@ desc 'Public release, `VERSION=x.y.z rake release`'
 task release: [
   'git:check_workspace',
   'release:check',
-  'test',
+  'release:test',
   'release:build',
   'release:publish',
   'release:cleanup'
@@ -16,10 +16,20 @@ namespace :release do
 
   desc 'ensures all of the required credentials are present'
   task check: [
+    'release:require_release_test_task',
     'release:require_version',
     'github:require_access_token',
     'gems:require_credentials'
   ]
+
+  desc 'require release:test to be defined'
+  task :require_release_test_task do
+    unless Rake::Task.task_defined?('release:test')
+      raise 'Missing task release:test. Implement a release:test task that '/
+              'runs tests (unit and/or integration) that are required for '/
+              'release.'
+    end
+  end
 
   desc 'require new version to be set'
   task :require_version do
