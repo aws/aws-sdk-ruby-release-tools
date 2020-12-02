@@ -20,6 +20,7 @@ namespace :github do
     gh = Octokit::Client.new(access_token: ENV['AWS_SDK_FOR_RUBY_GH_TOKEN'])
 
     repo = `git remote get-url origin`
+             .sub('ssh://', '')
              .sub('git@github.com:', '')
              .sub(".git\n", '')
     tag_ref_sha = `git show-ref v#{$VERSION}`.split(' ').first
