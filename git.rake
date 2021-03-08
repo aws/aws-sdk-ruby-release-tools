@@ -6,7 +6,7 @@ namespace :git do
   desc 'Ensure that the workspace is in a good state to release'
   idempotent_task :check_workspace do
     Rake::Task['git:require_clean_workspace'].execute
-    Rake::Task['git:require_master'].execute
+    Rake::Task['git:require_main'].execute
     Rake::Task['git:require_up_to_date'].execute
   end
 
@@ -19,12 +19,12 @@ namespace :git do
     end
   end
 
-  desc 'Ensure the git repo is on master'
-  task :require_master do
+  desc 'Ensure the git repo is on main'
+  task :require_main do
     status = `git status --porcelain=v2 --branch 2> /dev/null`
     unless status.include? 'branch.ab +0 -0'
       warn('workspace must be in sync with remote ' \
-        'origin/master branch to release')
+        'origin/main branch to release')
       exit(1)
     end
   end
@@ -48,7 +48,7 @@ namespace :git do
   end
 
   desc 'Push local changes and tags to the origin'
-  task :push do
+  task :execute do
     sh('git push origin')
     sh('git push origin --tags')
   end
