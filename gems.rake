@@ -11,7 +11,7 @@ namespace :gems do
   end
 
   desc 'Push (release) the gem to RubyGems'
-  idempotent_task :execute do
+  idempotent_task :push do
     sh("gem push #{gem_name}-#{$VERSION}.gem")
   end
 
