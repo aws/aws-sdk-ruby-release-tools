@@ -32,8 +32,8 @@ namespace :git do
   desc 'Ensure the git repo is up to date/in sync with origin'
   task :require_up_to_date do
     status = `git fetch && git status --porcelain=v2 --branch 2> /dev/null`
-    unless status.include? 'branch.upstream origin/master'
-      warn('workspace must be on master branch to release')
+    unless status.include? 'branch.upstream origin/main'
+      warn('workspace must be on main branch to release')
       exit(1)
     end
   end
