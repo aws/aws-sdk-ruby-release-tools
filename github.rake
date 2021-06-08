@@ -22,7 +22,7 @@ namespace :github do
     repo = `git remote get-url origin`
              .sub('ssh://', '')
              .sub('git@github.com:', '')
-             .sub(".git\n", '')
+             .sub(".git\n", '').chomp
     tag_ref_sha = `git show-ref v#{$VERSION}`.split(' ').first
     tag = gh.tag(repo, tag_ref_sha)
 
