@@ -48,7 +48,7 @@ namespace :git do
   end
 
   desc 'Push local changes and tags to the origin'
-  task :execute do
+  task :push do
     sh('git push origin')
     sh('git push origin --tags')
   end
