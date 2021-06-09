@@ -1,9 +1,10 @@
 # frozen_string_literal: true
+
 require_relative 'release_tool_utils'
 
 namespace :docs do
   desc 'Delete the locally generated docs.'
-  task :clobber  do
+  task :clobber do
     rm_rf '.yardoc', verbose: false
     rm_rf 'doc', verbose: false
     rm_rf 'docs.zip', verbose: false
