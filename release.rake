@@ -13,7 +13,6 @@ task release: [
 ]
 
 namespace :release do
-
   desc 'ensures all of the required credentials are present'
   task check: [
     'release:require_release_test_task',
@@ -25,9 +24,9 @@ namespace :release do
   desc 'require release:test to be defined'
   task :require_release_test_task do
     unless Rake::Task.task_defined?('release:test')
-      raise 'Missing task release:test. Implement a release:test task that '/
-              'runs tests (unit and/or integration) that are required for '/
-              'release.'
+      raise 'Missing task release:test. Implement a release:test task that ' /
+            'runs tests (unit and/or integration) that are required for ' /
+            'release.'
     end
   end
 

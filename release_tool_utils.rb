@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'fileutils'
 
 def gem_name
@@ -26,7 +28,7 @@ def tag_message
   issues = `git log $(git describe --tags --abbrev=0)...HEAD -E \
               --grep '#[0-9]+' 2>/dev/null`
   issues = issues.scan(%r{((?:\S+/\S+)?#\d+)}).flatten
-  msg = "Tag release v#{ENV['VERSION']}"
+  msg = String.new("Tag release v#{ENV['VERSION']}")
   msg << "\n\n"
   unless issues.empty?
     msg << "References: #{issues.uniq.sort.join(', ')}"
@@ -39,10 +41,10 @@ def changelog_latest
   # Returns the contents of the most recent CHANGELOG section
   changelog = File.open('CHANGELOG.md', 'r', encoding: 'UTF-8', &:read)
   lines = []
-  changelog.lines.to_a[3..-1].each do |line|
+  changelog.lines.to_a[3..].each do |line|
     # match a version number followed by date eg: 3.0.5 (2019-10-17)
     # will also match pre-release either 0.0.1.rc1 or 0.0.1.beta.1
-    break if line =~ /^\d+\.\d+\.\d+(\.[\.\w]+)? [( ]\d\d\d\d-\d\d-\d\d[)]/
+    break if line =~ /^\d+\.\d+\.\d+(\.[.\w]+)? [( ]\d\d\d\d-\d\d-\d\d[)]/
 
     lines << line
   end

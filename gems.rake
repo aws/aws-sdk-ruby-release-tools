@@ -3,7 +3,6 @@
 require_relative 'release_tool_utils'
 
 namespace :gems do
-
   desc 'Build the gem'
   task :build do
     sh('rm -f *.gem')
