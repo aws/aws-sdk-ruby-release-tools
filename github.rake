@@ -29,7 +29,7 @@ namespace :github do
     release = gh.create_release(
       repo, "v#{$VERSION}",
       name: name,
-      body: "#{tag.message}\n#{changelog_latest}",
+      body: tag.message,
       prerelease: $VERSION.match('rc') ? true : false
     )
 
