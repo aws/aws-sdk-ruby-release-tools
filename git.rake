@@ -44,7 +44,7 @@ namespace :git do
     # Don't use interpolation here: changelog entries often have
     # backticks for formatting, and those will get run as commands
     # here otherwise.
-    sh("git tag -a -m \"#{tag_message}\" v#{$VERSION}")
+    sh("git tag -a -m \"#{tag_message.gsub('`', '\\`')}\" v#{$VERSION}")
   end
 
   desc 'Push local changes and tags to the origin'
