@@ -5,15 +5,18 @@ require_relative 'release_tool_utils'
 namespace :github do
   desc 'Check for a Github aaccess token'
   task :require_access_token do
+    puts 'TASK START: github:require_access_token'
     unless ENV['AWS_SDK_FOR_RUBY_GH_TOKEN']
       warn('Github credentials for the automation account are required.: ' \
         "export ENV['AWS_SDK_FOR_RUBY_GH_TOKEN']")
       exit(1)
     end
+    puts 'TASK END: github:require_access_token'
   end
 
   desc 'Push a new github release'
   idempotent_task :release do
+    puts 'TASK START: github:release'
     require 'octokit'
 
     gh = Octokit::Client.new(access_token: ENV['AWS_SDK_FOR_RUBY_GH_TOKEN'])
@@ -38,5 +41,6 @@ namespace :github do
       "#{gem_name}-#{$VERSION}.gem",
       content_type: 'application/octet-stream'
     )
+    puts 'TASK END: github:release'
   end
 end
