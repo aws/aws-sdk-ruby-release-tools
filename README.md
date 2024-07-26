@@ -1,6 +1,6 @@
-## Shared Release tools for AWS SDK for Ruby 1P gems
-Common release scripts/tasks intended to be used as a submodule.
-See the internal runbook for usage instructions.
+## Shared release tools for AWS SDK for Ruby 1P gems
+
+Common release tasks intended to be included as a submodule. See the internal runbook for usage instructions.
 
 ## License
 
