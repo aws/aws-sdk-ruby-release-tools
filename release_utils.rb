@@ -8,7 +8,7 @@ def gem_name
 end
 
 def ensure_release_dir
-  Dir.mkdir('.release') unless File.exist? '.release'
+  FileUtils.mkdir_p('.release')
 end
 
 def idempotent_task(task_def)
@@ -28,7 +28,7 @@ def tag_message
   issues = `git log $(git describe --tags --abbrev=0)...HEAD -E \
               --grep '#[0-9]+' 2>/dev/null`
   issues = issues.scan(%r{((?:\S+/\S+)?#\d+)}).flatten
-  msg = String.new("Tag release v#{ENV['VERSION']}")
+  msg = String.new("Tag release v#{ENV.fetch('VERSION', nil)}")
   msg << "\n\n"
   unless issues.empty?
     msg << "References: #{issues.uniq.sort.join(', ')}"

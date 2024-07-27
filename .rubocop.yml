@@ -11,6 +11,9 @@
 AllCops:
   NewCops: enable
 
+Layout/LineLength:
+  Max: 80
+
 Metrics/BlockLength:
   Exclude:
     - '*.rake'

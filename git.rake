@@ -29,7 +29,7 @@ namespace :git do
     status = `git status --porcelain=v2 --branch 2> /dev/null`
     unless status.include? 'branch.ab +0 -0'
       warn('workspace must be in sync with remote ' \
-        'origin/main branch to release')
+           'origin/main branch to release')
       exit(1)
     end
     puts 'TASK END: git:require_main'
