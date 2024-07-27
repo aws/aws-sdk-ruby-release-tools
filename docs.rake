@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'release_tool_utils'
+require_relative 'release_utils'
 
 namespace :docs do
   desc 'Delete the locally generated docs.'

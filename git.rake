@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'release_tool_utils'
+require_relative 'release_utils'
 
 namespace :git do
   desc 'Ensure that the workspace is in a good state to release'

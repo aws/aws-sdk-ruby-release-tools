@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'release_tool_utils'
+require_relative 'release_utils'
 
 desc 'Public release, `VERSION=x.y.z rake release`'
 task release: [

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'release_tool_utils'
+require_relative 'release_utils'
 
 namespace :github do
   desc 'Check for a Github aaccess token'

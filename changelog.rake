@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'release_tool_utils'
+require_relative 'release_utils'
 
 namespace :changelog do
   desc 'replaces "Unreleased Changes"" in the CHANGELOG with a version and date'
