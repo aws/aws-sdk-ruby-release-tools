@@ -33,7 +33,7 @@ namespace :github do
     name = "Release v#{$VERSION} - #{tag.tagger.date.strftime('%Y-%m-%d')}"
     release = gh.create_release(
       repo, "v#{$VERSION}",
-      name:,
+      name: name,
       body: tag.message,
       prerelease: $VERSION.match('rc') ? true : false
     )

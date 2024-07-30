@@ -41,7 +41,7 @@ def changelog_latest
   # Returns the contents of the most recent CHANGELOG section
   changelog = File.open('CHANGELOG.md', 'r', encoding: 'UTF-8', &:read)
   lines = []
-  changelog.lines.to_a[3..].each do |line|
+  changelog.lines.to_a[3..-1].each do |line|
     # match a version number followed by date eg: 3.0.5 (2019-10-17)
     # will also match pre-release either 0.0.1.rc1 or 0.0.1.beta.1
     break if line =~ /^\d+\.\d+\.\d+(\.[.\w]+)? [( ]\d\d\d\d-\d\d-\d\d[)]/
