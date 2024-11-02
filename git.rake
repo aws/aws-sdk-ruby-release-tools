@@ -49,11 +49,11 @@ namespace :git do
   desc 'Add a tag of the version release'
   task :tag do
     puts 'TASK START: git:tag'
-    sh("git commit -m \"Bumped version to v#{$VERSION}\"")
+    sh("git commit -m \"Bumped version to v#{ENV['VERSION']}\"")
     # Don't use interpolation here: changelog entries often have
     # backticks for formatting, and those will get run as commands
     # here otherwise.
-    sh("git tag -a -m \"#{tag_message.gsub('`', '\\\`')}\" v#{$VERSION}")
+    sh("git tag -a -m \"#{tag_message.gsub('`', '\\\`')}\" v#{ENV['VERSION']}")
     puts 'TASK END: git:tag'
   end
 

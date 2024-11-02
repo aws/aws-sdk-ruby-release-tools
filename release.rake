@@ -45,7 +45,7 @@ namespace :release do
   desc 'bumps the VERSION file'
   idempotent_task :bump_version do
     puts 'TASK START: release:bump_version'
-    sh("echo '#{$VERSION}' > VERSION")
+    sh("echo '#{ENV['VERSION']}' > VERSION")
     sh('git add VERSION')
     puts 'TASK END: release:bump_version'
   end

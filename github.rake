@@ -19,28 +19,24 @@ namespace :github do
     puts 'TASK START: github:release'
     require 'octokit'
 
-    gh = Octokit::Client.new(access_token: ENV.fetch(
-      'AWS_SDK_FOR_RUBY_GH_TOKEN', nil
-    ))
-
+    gh = Octokit::Client.new(access_token: ENV['AWS_SDK_FOR_RUBY_GH_TOKEN'])
     repo = `git remote get-url origin`
            .sub('ssh://', '')
            .sub('git@github.com:', '')
            .sub(".git\n", '').chomp
-    tag_ref_sha = `git show-ref v#{$VERSION}`.split.first
+    tag_ref_sha = `git show-ref v#{ENV['VERSION']}`.split.first
     tag = gh.tag(repo, tag_ref_sha)
-
-    name = "Release v#{$VERSION} - #{tag.tagger.date.strftime('%Y-%m-%d')}"
+    date = tag.tagger.date.strftime('%Y-%m-%d')
     release = gh.create_release(
-      repo, "v#{$VERSION}",
-      name: name,
+      repo, "v#{ENV['VERSION']}",
+      name: "Release v#{ENV['VERSION']} - #{date}",
       body: tag.message,
-      prerelease: $VERSION.match('rc') ? true : false
+      prerelease: ENV['VERSION'].match('rc') ? true : false
     )
 
     gh.upload_asset(
       release.url,
-      "#{gem_name}-#{$VERSION}.gem",
+      "#{gem_name}-#{ENV['VERSION']}.gem",
       content_type: 'application/octet-stream'
     )
     puts 'TASK END: github:release'

@@ -28,7 +28,7 @@ def tag_message
   issues = `git log $(git describe --tags --abbrev=0)...HEAD -E \
               --grep '#[0-9]+' 2>/dev/null`
   issues = issues.scan(%r{((?:\S+/\S+)?#\d+)}).flatten
-  msg = String.new("Tag release v#{ENV.fetch('VERSION', nil)}")
+  msg = String.new("Tag release v#{ENV['VERSION']}")
   msg << "\n\n"
   unless issues.empty?
     msg << "References: #{issues.uniq.sort.join(', ')}"
