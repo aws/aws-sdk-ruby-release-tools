@@ -19,5 +19,5 @@ Metrics/BlockLength:
   Exclude:
     - '*.rake'
 
-Style/GlobalVars:
+Style/FetchEnvVar:
   Enabled: false

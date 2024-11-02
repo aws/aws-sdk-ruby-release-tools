@@ -12,7 +12,7 @@ namespace :changelog do
       warn('The first line of changelog must match "Unreleased Changes"')
       exit(1)
     end
-    changelog[0] = "#{$VERSION} (#{Time.now.strftime('%Y-%m-%d')})\n"
+    changelog[0] = "#{ENV['VERSION']} (#{Time.now.strftime('%Y-%m-%d')})\n"
     changelog = changelog.join
     File.open('CHANGELOG.md', 'w', encoding: 'UTF-8') { |f| f.write(changelog) }
     sh('git add CHANGELOG.md')
